@@ -1,0 +1,524 @@
+;; ******************************** WIDGETS *********************************************
+
+;; background
+(defwidget bg [] 
+	(box :class "bg")
+)
+
+;; profile
+(defwidget user [] 
+	(box 
+		:class "genwin" 
+		:orientation "v" 
+		:spacing 35 
+		:space-evenly "false" 
+		:vexpand "false" 
+		:hexpand "false" 
+		:width 350 
+		:height 440
+			(box 
+				:class "face" 
+				:halign "center"
+					(image 
+						:path "${IMAGE}" 
+						:image-width 200 
+					)
+			)
+			(label 
+				:class "fullname" 
+				:halign "center" 
+				:wrap "true" 
+				:limit-width 25 
+				:text NAME
+			)
+			(label 
+				:class "username" 
+				:halign "center" 
+				:wrap "true" 
+				:limit-width 25 
+				:text UNAME
+			)
+	)
+)
+
+;; Sound Bar
+(defwidget sound_bar []
+	(box 
+		:class "sysbar" 
+		:orientation "h" 
+		:spacing 32 
+		:space-evenly "false" 
+		:vexpand "false" 
+		:hexpand "true" 
+			(button 
+				:class "sysicon" 
+				:onclick "amixer set Master toggle" 
+				{ VOL == 0 ? "󰸈" : VOL < 33 ? "" : VOL < 67 ? "" : ""} 
+			)
+			(eventbox
+				:cursor "pointer"
+					(scale 
+						:min 0 
+						:max 100 
+						:value VOL
+						:onchange "amixer -D pulse sset Master {}%"
+						:hexpand "true"
+					)
+			)
+	)
+)
+
+;; Brightness Bar
+(defwidget brightness_bar []
+			(box 
+				:class "sysbar" 
+				:orientation "h" 
+				:spacing 32 
+				:space-evenly "false" 
+				:vexpand "false" 
+				:hexpand "true" 
+					(label 
+						:class "sysicon" 
+						:text ""
+					)
+					(eventbox
+						:cursor "pointer"
+							(scale 
+								:min 0 
+								:max 101 
+								:value BLIGHT 
+								:orientation "h"
+								:tooltip "Brightness: ${BLIGHT}%"
+								:onchange "brightnessctl set {}%"
+								:hexpand true
+							)
+					)
+			)
+)
+
+;; System
+(defwidget system [] 
+	(box 
+		:class "genwin" 
+		:vexpand "false" 
+		:hexpand "false" 
+		:width 350 
+		:height 325
+			(box 
+				:orientation "v" 
+				:spacing 35 
+				:halign "center" 
+				:valign "center" 
+				:space-evenly "false" 
+				:vexpand "false" 
+				:hexpand "false" 
+					(sound_bar)
+					(brightness_bar)
+					(box 
+						:class "sysbar" 
+						:orientation "h" 
+						:spacing 20
+						:space-evenly "false" 
+						:vexpand "false" 
+						:hexpand "false" 
+							(label 
+								:class "sysicon" 
+								:text ""
+							)
+							(scale
+								:min 0 
+								:max 100 
+								:value {EWW_BATTERY.BAT0.capacity} 
+								:active "false"
+							)
+					)
+			)
+	)
+)
+
+;; clock
+(defwidget clock [] 
+	(box 
+		:class "genwin" 
+		:orientation "h" 
+		:spacing 50 
+		:space-evenly false 
+		:vexpand "false" 
+		:hexpand "false" 
+		:width 350 
+		:height 155 
+		(box 
+			:orientation "h" 
+			:spacing 0	
+				(label 
+				:class "timeHour" 
+				:valign "start" 
+				:wrap "true" 
+				:limit-width 25 
+				:text HOUR
+				)
+				(label 
+				:class "timeMin" 
+				:valign "end" 
+				:wrap "true" 
+				:limit-width 25 
+				:text MIN
+				)
+		)
+		(box 
+			:orientation "v" 
+			:spacing 0 
+				(label 
+					:class "timeDay" 
+					:valign "end" 
+					:halign "end" 
+					:wrap "true" 
+					:limit-width 25 
+					:text DAY
+				)
+		)
+	)
+)
+
+;; uptime
+(defwidget uptime [] 
+	(box 
+		:class "genwin"  
+		:width 350 
+		:height 155
+			(box 
+				:orientation "h" 
+				:halign "center" 
+				:spacing 40 
+				:space-evenly "false" 
+				:vexpand "false" 
+				:hexpand "false" 
+					(label 
+						:class "icontimer" 
+						:valign "center" 
+						:text "祥")
+					(box 
+						:orientation "v" 
+						:valign "center" 
+						:spacing 0 
+						:space-evenly "false" 
+						:vexpand "false" 
+						:hexpand "false" 
+							(label 
+								:class "uphour" 
+								:halign "start"
+								:wrap "true" 
+								:limit-width 25 
+								:text UPHOUR
+							)
+							(label 
+								:class "upmin" 
+								:halign "start" 
+								:wrap "true" 
+								:limit-width 25 
+								:text UPMIN 
+							)
+					)
+			)
+	)
+)
+
+;; power button
+(defwidget powerbutton [command text] 
+	(eventbox
+		:cursor "pointer"
+			(box 
+				:class "genwin" 
+				:vexpand "false" 
+				:hexpand "false" 
+				:width 155 
+				:height 155
+				(button 
+					:class "powerbutton" 
+					:onclick {command} 
+					{text}
+				)
+			)
+	)
+)
+
+;; folders
+(defwidget folders []  
+	(box 
+		:class "genwin" 
+		:orientation "v" 
+		:space-evenly "false"  
+		:width 350 
+		:height 440
+			(box 
+				:class "hddbox" 
+				:orientation "h" 
+				:space-evenly "false"  
+					(box 
+						:space-evenly "false" 
+							(label 
+								:class "hddicon" 
+								:text ""
+							)
+							(label 
+								:class "fssep" 
+								:text "|"
+							)
+					)
+					(box 
+						:space-evenly "false"  
+							(label 
+								:class "hddlabel" 
+								:wrap "true" 
+								:limit-width 25 
+								:text FREE
+							)
+					)
+			)
+			(folder_entry 
+				:command "./scripts/open_folders --docs"
+				:icon ""
+				:text "Documents"
+			)
+			(folder_entry 
+				:command "./scripts/open_folders --dl"
+				:icon ""
+				:text "Downloads"
+			)
+			(folder_entry 
+				:command "./scripts/open_folders --music"
+				:icon ""
+				:text "Music")
+			(folder_entry 
+				:command "./scripts/open_folders --pics"
+				:icon ""
+				:text "Pictures"
+			)
+			(folder_entry 
+				:command "./scripts/open_folders --cfg"
+				:icon "ﮛ"
+				:text "~/.config"
+			)
+			(folder_entry 
+				:command "./scripts/open_folders --local"
+				:icon "ﮛ"
+				:text "~/.local"
+			)
+	)
+)
+
+;; Folder Entry
+(defwidget folder_entry [command icon text]
+	(eventbox
+		:cursor "pointer"
+			(box 
+				:orientation "h" 
+				:space-evenly "false"  
+				(button 
+					:class "iconfolder" 
+					:onclick {command}
+					{icon}
+				)
+				(button 
+					:class "labelfolder" 
+					:onclick {command}
+					{text}
+				)
+			)
+	)
+)
+
+;; vaktija
+(defwidget vaktija [] 
+	(box 
+		:class "genwin vaktija" 
+		:orientation "v" 
+		:space-evenly "true" 
+		:width 100 
+		:height 440
+			(box 
+				:class "vaktijaHeader"
+				:orientation "h" 
+				:space-evenly "true"  
+					(label 
+						:class "vaktijaTime" 
+						:halign "center" 
+						:wrap "true" 
+						:limit-width 25 
+						:text "VAKTIJA - GRAZ"
+					)
+			)
+			(box 
+				:class "vaktijaHeader"
+				:orientation "h" 
+				:space-evenly "true"  
+					(label 
+						:class "vaktijaTime" 
+						:halign "center" 
+						:wrap "true" 
+						:limit-width 25 
+						:text DATE
+					)
+				)
+			(vaktija_entry
+				:text "FAJR"
+				:time {FAJR}
+			)
+			(vaktija_entry
+				:text "SUNRISE"
+				:time {SUNRISE}
+			)
+			(vaktija_entry
+				:text "DHUHR"
+				:time {DHUHR}
+			)
+			(vaktija_entry
+				:text "ASR"
+				:time {ASR}
+			)
+			(vaktija_entry
+				:text "MAGHRIB"
+				:time {MAGHRIB}
+			)
+			(vaktija_entry
+				:text "ISHA"
+				:time {ISHA}
+			)
+	)
+)
+
+;; Vaktija Entry
+(defwidget vaktija_entry [text time]
+	(box 
+		:orientation "h" 
+		:space-evenly "true" 
+			(label 
+				:class "vaktijaTime" 
+				:halign "start" 
+				:wrap "true" 
+				:limit-width 25 
+				:text {text}
+			)
+			(label 
+				:class "vaktijaTime" 
+				:halign "end" 
+				:wrap "true" 
+				:limit-width 25 
+				:text {time})
+		)
+)
+
+;; Dashboard
+(defwidget dashboard[]
+      (box 
+				:orientation "h" 
+			:class "dashboard" 
+			:vexpand false 
+			:hexpand false 
+			:spacing 15 
+            (box 
+							:orientation "v" 
+							:vexpand false 
+							:hexpand false 
+							:spacing 15 
+							:space-evenly false
+								(user)
+								(system)   
+            )
+            (box 
+							:orientation "v" 
+							:vexpand false 
+							:hexpand false 
+							:spacing 15 
+							:space-evenly false 
+                (clock) 
+                (uptime)
+                (folders) 
+            )
+            (box 
+							:orientation "v" 
+							:vexpand false 
+							:hexpand false 
+							:spacing 15 
+							:space-evenly false  
+                (box 
+									:orientation "h" 
+									:vexpand false 
+									:hexpand false 
+									:spacing 15 
+									:space-evenly false
+										(powerbutton 
+											:command "xfce4-session-logout" 
+											:text ""
+										)
+										(powerbutton 
+												:command "systemctl reboot" 
+												:text ""
+										)
+                )
+                (box 
+									:orientation "h" 
+									:vexpand false 
+									:hexpand false 
+									:spacing 15 
+									:space-evenly false
+										(powerbutton 
+											:command "systemctl suspend" 
+											:text ""
+										)
+										(powerbutton 
+												:command "systemctl poweroff" 
+												:text ""
+										)
+                )  
+                (vaktija)
+           )
+      )
+)
+
+;; Dashboard launcher
+(defwidget launch_dashboard []
+	(eventbox 
+		:valign "center"
+		:onclick "./scripts/launch_custom_window.sh dash" 
+		:onrightclick "./scripts/open_apps.sh --stt &"
+		:cursor "pointer"
+			(box
+				:class "dashcont"
+					(label 
+						:style "margin-right: 3px" 
+						:text "")
+				)
+	)
+)
+
+;; ******************************** WINDOWS *********************************************
+    
+;; Dashnoard Window
+(defwindow dash []
+	:stacking "fg"
+	:windowtype "normal"
+	:wm-ignore true
+	:geometry (geometry 
+							:x 1477 
+							:y 34 
+							:width "1085px"
+						)
+	(dashboard)
+)
+
+;; Background Dashboard close handler
+(defwindow backdrop_closer_dash
+  :stacking "bg"
+  :geometry (geometry 
+							:x 0 
+							:y 38 
+							:width 2560 
+							:height 1566)
+    (box :class "test" :width 2560 :height 1566
+      (button 
+				:onclick "./scripts/launch_custom_window.sh dash"
+      	""
+			)
+    )
+)

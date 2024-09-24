@@ -1,0 +1,19 @@
+(include "./modules/systray.yuck")
+
+(include "./modules/dash.yuck")
+(include "./modules/workspace.yuck")
+(include "./modules/window_title.yuck")
+(include "./modules/control_center.yuck")
+(include "./variables.yuck")
+
+;; Top Padding Placeholder
+(defwindow placeholder 
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore true
+  :reserve (struts 
+              :side "top" 
+              :distance 36
+            )
+    (box)
+)

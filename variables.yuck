@@ -1,0 +1,55 @@
+;; ******************************** VARIABLES *********************************************
+
+;; Remaining battery 
+(defpoll remaining_battery_time :interval "60s" "./scripts/get_battery_rem_time.sh" )
+
+;; Sound
+(defpoll MIC :initial "0" :interval "1s" "./scripts/sys_info --mic")
+(defpoll VOL :initial "0" :interval "1s" "./scripts/sys_info --vol" )
+(defvar sound_rev false)
+
+;; Wifi 
+(defvar WIFI_ICON_PATH "./assets/wifi_")
+(defpoll WIFI_NAME :initial "Disconnected" :interval "1s" "./scripts/wifi.sh --name")
+(defpoll WIFI_STRENGTH :initial "0" :interval "1s" "./scripts/wifi.sh --str")
+(defpoll WIFI_STATUS :initial "Off" :interval "1s" "./scripts/wifi.sh --sts")
+
+;; Bluetooth
+(defvar BT_ICON_PATH "./assets/bt_")
+(defpoll BT_NAME :initial "Disconnected" :interval "1s" "./scripts/bluetooth.sh --name")
+(defpoll BT_STATUS :initial "Off" :interval "1s" "./scripts/bluetooth.sh --sts")
+
+;; Window
+(deflisten windw_name :initial "AscijA" './scripts/get_active_window.sh')
+(defvar CLICK_COUNT 0)
+
+;; Profile vars
+(defvar IMAGE "./assets/pingu.png")
+(defvar NAME "Maid Aščić")
+(defpoll UNAME :interval "5m" "whoami")
+
+;; System vars
+(defpoll HOST :interval "5s" "hostname")
+(defpoll BLIGHT :initial "0" :interval "1s" "./scripts/sys_info --blight")
+
+;; Time vars
+(defpoll HOUR :interval "5s" 'date +"%H"')
+(defpoll MIN :interval "5s" 'date +"%M"')
+(defpoll DAY :interval "5s" 'LANG=en_DE date +"%A"')
+(defpoll DATE :interval "5s" 'LANG=en_DE date +"%a, %d-%m-%Y"')
+(defpoll TIME :interval "1s" 'date +"%H:%M"')
+
+;; Uptime vars
+(defpoll UPHOUR :interval "5s" `uptime -p | awk '{print $2 " " $3}' | sed 's/,//g'`)
+(defpoll UPMIN :interval "5s" `uptime -p | awk '{if ($6 ~< /min/) print $4 " " $6; else print ""}' | sed 's/,//g'`)
+
+;; Vaktija vars
+(defpoll FAJR :interval "1s" "python3 ./scripts/vaktija-fetch.py fajr")
+(defpoll SUNRISE :interval "1s" "python3 ./scripts/vaktija-fetch.py sunrise")
+(defpoll DHUHR :interval "1s" "python3 ./scripts/vaktija-fetch.py dhuhr")
+(defpoll ASR :interval "1s" "python3 ./scripts/vaktija-fetch.py asr")
+(defpoll MAGHRIB :interval "1s" "python3 ./scripts/vaktija-fetch.py maghrib")
+(defpoll ISHA :interval "1s" "python3 ./scripts/vaktija-fetch.py isha")
+
+;; Files vars
+(defpoll FREE :interval "5s" `df -h / | awk '{print $4}' | tail -n 1 | sed 's/G/GB/'`)
