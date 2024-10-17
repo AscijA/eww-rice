@@ -73,7 +73,8 @@ scale trough highlight {
 }
 
 .timeHour {
-	margin: 15px 0px 0px 20px;
+	// margin: 15px 0px 0px 20px;
+	font-size: 75px;
 }
 
 .timeMin {
@@ -115,6 +116,11 @@ scale trough highlight {
 
 }
 
+.date{
+	font-size: 36px;
+	color: $blue;
+	font-weight: 800;
+}
 
 /** Home folders ***************************************/
 .hddbox {
@@ -181,7 +187,8 @@ scale trough highlight {
 	font-weight: bold;
 	margin: 0;
 	margin-right: 25px;
-	:first-child{
+
+	:first-child {
 		border-radius: 16px;
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;

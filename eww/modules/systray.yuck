@@ -7,7 +7,7 @@
   :wm-ignore true
   :geometry (geometry
               :height 32
-              :width "20%"
+              :width "11%"
               :anchor "top right"
             )
     (box 
@@ -17,7 +17,7 @@
       :spacing 2
       :valign "center"
       :halign "end"
-        (tray)
+;        (tray)
         (clock_bar)
         (control_center_launch 
           :status {EWW_BATTERY.BAT0.status}
@@ -58,7 +58,7 @@
           :class "wifiTray"
           :halign "start"
           :hexpand false
-          :onclick ""
+          :onclick "./scripts/open_apps.sh --nmd &"
           :onrightclick "./scripts/open_apps.sh --wifi &" 
           :cursor "pointer"
             (wifi_button 
@@ -74,11 +74,22 @@
 (defwidget clock_bar []
   (tooltip 
     :class "ttCont"
-      (label 
-        :text DATE 
-        :class "tooltip" 
-        :justify "center"
-      ) 
+      (box
+        :class "ccTTCont"
+        :orientation "v"
+        :space-evenly false
+        :spacing 0
+        (label 
+          :text DAY
+          :class "tooltip" 
+          :justify "center"
+        )
+        (label 
+          :text DATE 
+          :class "tooltip" 
+          :justify "center"
+        ) 
+      )
       (box 
         :valign "center" 
           (label 

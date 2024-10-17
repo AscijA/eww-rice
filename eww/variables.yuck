@@ -13,7 +13,7 @@
 (defpoll WIFI_NAME :initial "Disconnected" :interval "1s" "./scripts/wifi.sh --name")
 (defpoll WIFI_STRENGTH :initial "0" :interval "1s" "./scripts/wifi.sh --str")
 (defpoll WIFI_STATUS :initial "Off" :interval "1s" "./scripts/wifi.sh --sts")
-
+; (defpoll )
 ;; Bluetooth
 (defvar BT_ICON_PATH "./assets/bt_")
 (defpoll BT_NAME :initial "Disconnected" :interval "1s" "./scripts/bluetooth.sh --name")
@@ -27,6 +27,7 @@
 (defvar IMAGE "./assets/pingu.png")
 (defvar NAME "Maid Aščić")
 (defpoll UNAME :interval "5m" "whoami")
+(defvar IMAGE_EOS "./assets/eos")
 
 ;; System vars
 (defpoll HOST :interval "5s" "hostname")
@@ -36,7 +37,7 @@
 (defpoll HOUR :interval "5s" 'date +"%H"')
 (defpoll MIN :interval "5s" 'date +"%M"')
 (defpoll DAY :interval "5s" 'LANG=en_DE date +"%A"')
-(defpoll DATE :interval "5s" 'LANG=en_DE date +"%a, %d-%m-%Y"')
+(defpoll DATE :interval "5s" 'LANG=en_DE date +"%d.%m.%Y"')
 (defpoll TIME :interval "1s" 'date +"%H:%M"')
 
 ;; Uptime vars
@@ -50,6 +51,8 @@
 (defpoll ASR :interval "1s" "python3 ./scripts/vaktija-fetch.py asr")
 (defpoll MAGHRIB :interval "1s" "python3 ./scripts/vaktija-fetch.py maghrib")
 (defpoll ISHA :interval "1s" "python3 ./scripts/vaktija-fetch.py isha")
+(defpoll HIJRI_DATE :interval "1s" "python3 ./scripts/hijri.py day")
+(defpoll HIJRI_MONTH :interval "1s" "python3 ./scripts/hijri.py mnt")
 
 ;; Files vars
 (defpoll FREE :interval "5s" `df -h / | awk '{print $4}' | tail -n 1 | sed 's/G/GB/'`)

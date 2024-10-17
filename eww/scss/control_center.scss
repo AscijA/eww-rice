@@ -11,6 +11,12 @@
   }
 }
 
+.userLabel {
+  font-size: 32px;
+  font-weight: bold;
+
+}
+
 .iconmic {
   font-size: 32px;
   font-weight: normal;
@@ -64,34 +70,34 @@
   border-radius: 16px;
 }
 
-calendar{
-  all:unset;
+calendar {
+  all: unset;
   color: $base3;
 
   // background-color: $base01;
-  .view{
+  .view {
     background-color: $base02;
     border-radius: 10px;
   }
-  
-  :selected{
+
+  :selected {
     color: $blue;
     font-weight: bold;
     background-color: $base3;
     border-radius: 8px;
   }
 
-  .header{
+  .header {
     background-color: $base01;
     border-radius: 10px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
 
-  .highlight{
+  .highlight {
     color: $blue;
   }
-   
+
   calendar:indeterminate {
     color: $base00;
   }

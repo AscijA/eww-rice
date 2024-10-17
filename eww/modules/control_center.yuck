@@ -47,7 +47,7 @@
 (defwidget wifi_button_cont []
   (eventbox  
     :onclick "./scripts/wifi.sh --tgl"
-    :onrightclick "" 
+    ; :onrightclick "./scripts/open_apps.sh --nmd &" 
     :class '${WIFI_STATUS == "Off" ? "ccBtnContOff" : "ccBtnCont"}'
     :hexpand true
     :cursor "pointer"
@@ -140,6 +140,7 @@
     :active true  
     :space-evenly false 
     :spacing 16 
+      (info)
       (box 
         :spacing 16 
         :halign "fill" 
@@ -229,6 +230,37 @@
             :onchange "amixer -D pulse sset Capture {}%"  
             :hexpand true
           )
+      )
+  )
+)
+
+;; User Profile Widget
+(defwidget info[]
+  (box
+    :space-evenly false 
+    :halign "fill"
+      (image 
+        :path "${IMAGE}" 
+				:image-width 50 
+        :style "margin-left: 25px;"
+      )
+      (box
+        :orientation "v"
+        :hexpand true
+
+          (label 
+            :text UNAME
+            :class "userLabel"
+
+          )
+          (label
+            :text "EndeavourOS"
+          )
+      )
+      (image 
+        :path "${IMAGE_EOS}" 
+				:image-width 50 
+        :style "margin-right: 25px"
       )
   )
 )

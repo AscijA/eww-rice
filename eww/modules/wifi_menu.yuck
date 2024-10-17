@@ -1,0 +1,43 @@
+;; ******************************** WIDGETS *********************************************
+
+;; Wifi Menu Container
+(defwidget wifiMenu
+  (box 
+    :orientation "v" 
+    :class "controlCenterContainer" 
+    :width 300 
+    :active true  
+    :space-evenly false 
+    :spacing 16 
+
+
+  )
+
+)
+
+;; Wifi Entry
+(defwidget wifi_entry []
+  (box
+    (label :text "Name")
+    (image :path "") ;; Free/locked
+    (image :path "") ;; Signal Strength
+  )
+)
+
+
+
+
+;; ******************************** WINDOWS *********************************************
+
+(defwindow wifi_menu[x y]
+  :stacking "overlay"
+  :windowtype "normal"
+  :wm-ignore true
+	:geometry (geometry 
+              :x x 
+              :y y 
+              :anchor "top right"
+            )
+              (wifiMenu)
+
+)
