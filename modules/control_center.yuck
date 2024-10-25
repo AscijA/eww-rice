@@ -1,0 +1,295 @@
+;; ******************************** WIDGETS *********************************************
+
+;; Control Center Launcher
+(defwidget control_center_launch [battery status one two three four five charge]
+  (tooltip 
+    :class "ttCont"
+      (box 
+        :class "ccTTCont"
+        :orientation "v"
+        :space-evenly false
+        :spacing 0
+        (label 
+          :class "tooltip"
+          :text "${EWW_BATTERY.BAT0.status} ${remaining_battery_time}"
+        ) 
+        (label 
+          :class "tooltip"
+          :text "Volume: ${VOL}%"
+        )  
+        (label 
+          :class "tooltip"
+          :text "Input Volume: ${MIC}%"
+        )  
+    )
+    (eventbox
+      :onclick "./scripts/launch_custom_window.sh controlcenter"  
+      :cursor "pointer"
+        (box 
+          :space-evenly false 
+          :spacing 10 
+          :hexpand false  
+          :valign "center" 
+          (button 
+            :onclick "./scripts/launch_custom_window.sh controlcenter"  
+            '${status == "Charging" ? charge : ""} ${ battery < 20  ? five                   
+            : battery < 40  ? four                   
+            : battery < 60  ? three                  
+            : battery < 80  ? two                    
+            : one} ${battery}% ${VOL == 0 ? "󰸈" : ""}  ${ MIC == 0 ? "": ""}'
+          )
+        )
+    )
+  )
+)
+
+;; Wifi Button Control Center
+(defwidget wifi_button_cont []
+  (eventbox  
+    :onclick "./scripts/wifi.sh --tgl"
+    ; :onrightclick "./scripts/open_apps.sh --nmd &" 
+    :class '${WIFI_STATUS == "Off" ? "ccBtnContOff" : "ccBtnCont"}'
+    :hexpand true
+    :cursor "pointer"
+      (box 
+        :space-evenly false 
+        :spacing 8
+        (wifi_button 
+          :image_width 36 
+          :margin_value 16)
+        (box 
+          :orientation "v" 
+          :class "wifi"  
+          :hexpand true
+            (label 
+              :text WIFI_NAME 
+              :class "wifiName" 
+              :halign "start"
+            )
+            (label 
+              :text WIFI_STATUS 
+              :class "wifiStatus" 
+              :halign "start"
+            )
+        )
+      )
+  )
+)
+
+;; Wifi Button 
+(defwidget wifi_button [image_width margin_value]
+  (box 
+    :halign "start" 
+    :style "margin-left: ${margin_value}px"
+      (image 
+        :path '${WIFI_ICON_PATH}${ 
+          WIFI_STATUS == "Off"? "off"
+        : WIFI_STRENGTH > 80  ? "high"                   
+        : WIFI_STRENGTH > 60  ? "mid"                   
+        : WIFI_STRENGTH > 40  ? "low"               
+        : WIFI_STRENGTH > 20  ? "vlow"                  
+        : "no"}.png'
+        :image-width image_width)
+  )
+)
+
+;; Bluetooth button 
+(defwidget bt_button []
+  (eventbox 
+     :onclick "./scripts/bluetooth.sh --tgl"
+     :onrightclick "./scripts/open_apps.sh --bt &" 
+     :class '${BT_STATUS == "Off" ? "ccBtnContOff" : "ccBtnCont"}'
+     :hexpand true
+     :cursor "pointer"
+       (box 
+        :space-evenly false 
+        :spacing 8 
+          (box 
+            :halign "start" 
+            :style "margin-left: 16px"
+            (image 
+              :path '${BT_ICON_PATH}${BT_STATUS == "Off" ? "off" : BT_NAME != "Disconnected" ? "con" : "no" }.png'
+              :image-width 36
+            )
+          )
+          (box 
+            :orientation "v" 
+            :class "wifi" 
+            :hexpand true
+              (label 
+                :text BT_NAME 
+                :class "wifiName" 
+                :halign "start"
+              )
+              (label 
+                :text BT_STATUS 
+                :class "wifiStatus" 
+                :halign "start"
+              )
+            )
+          )
+  )
+)
+
+;; Control Center 
+(defwidget control_center []
+  (box 
+    :orientation "v" 
+    :class "controlCenterContainer" 
+    :width 300 
+    :active true  
+    :space-evenly false 
+    :spacing 16 
+      (info)
+      (box 
+        :spacing 16 
+        :halign "fill" 
+        :hexpand true 
+        :orientation "v"
+          (wifi_button_cont)
+          (bt_button) 
+      )    
+      (sound_center)
+      (box 
+        :hexpand true
+        (brightness_bar)
+      )
+      (box 
+        (calendar 
+          :show-details true 
+          :show-heading true  
+          :show-week-numbers true 
+          :day 18 
+          :month 9 
+          :year 2024
+        )
+      )
+  )
+)
+
+;; Sound center containing input and output volume
+(defwidget sound_center [] 
+  (box 
+    :orientation "v" 
+    :space-evenly false
+    (box 
+      :orientation "h" 
+      :style "all:unset;" 
+      :spacing 10 
+      :space-evenly false 
+        (sound_bar)
+        (eventbox
+          :cursor "pointer"
+            (button 
+              :class "soundbar" 
+              :onclick {sound_rev ? "eww update sound_rev=false" : "eww update sound_rev=true" }
+              :onrightclick "./scripts/open_apps.sh --audio &" 
+              {sound_rev ? "" : ""}  
+            )
+        )
+    ) 
+    (revealer 
+      :reveal sound_rev 
+      :transition "slidedown" 
+        (box 
+          :orientation "v" 
+          :space-evenly false 
+          :class "rev"
+          ; ( combo-box-text :class "cbox"
+          ;   :onchange "echo 'Changed'"  
+          ;   :items '["Item 1", "Item 2", "Item 3"]'
+          ;   "item 1"
+          ; )
+          (mic_bar)
+        )
+    )
+  )
+)
+
+;; Mic bar widget
+(defwidget mic_bar []
+  (box 
+    :class "sysbar" 
+    :orientation "h" 
+    :spacing 25 
+    :space-evenly "false" 
+    :vexpand "false" 
+    :hexpand "true" 
+    :halign "fill"
+      (button 
+        :class "sysicon" 
+        :onclick "amixer set Capture toggle" 
+        {MIC == 0 ? "": ""}
+      )
+      (eventbox
+        :cursor "pointer"
+          (scale 
+            :min 0 
+            :max 100 
+            :value MIC  
+            :onchange "amixer -D pulse sset Capture {}%"  
+            :hexpand true
+          )
+      )
+  )
+)
+
+;; User Profile Widget
+(defwidget info[]
+  (box
+    :space-evenly false 
+    :halign "fill"
+      (image 
+        :path "${IMAGE}" 
+				:image-width 50 
+        :style "margin-left: 25px;"
+      )
+      (box
+        :orientation "v"
+        :hexpand true
+
+          (label 
+            :text UNAME
+            :class "userLabel"
+
+          )
+          (label
+            :text "EndeavourOS"
+          )
+      )
+      (image 
+        :path "${IMAGE_EOS}" 
+				:image-width 50 
+        :style "margin-right: 25px"
+      )
+  )
+)
+
+;; ******************************** WINDOWS *********************************************
+
+(defwindow controlcenter
+  :stacking "overlay"
+  :windowtype "normal"
+  :wm-ignore true
+	:geometry (geometry 
+              :x -48 
+              :y 34 
+              :anchor "top right"
+            )
+    (control_center)
+)
+
+;; Backdrop closer
+(defwindow backdrop_closer_controlcenter
+   :stacking "bg"
+	 :geometry (geometry 
+               :x 0 
+               :y 38 
+               :width 2560 
+               :height 1566
+              )
+      (button 
+        :onclick "./scripts/launch_custom_window.sh controlcenter" 
+        ""
+      )
+)

@@ -1,0 +1,12 @@
+.windowTitleContainer {
+  margin-top: 2px;
+  background-color: $base03;
+  border-radius: 16px;
+  font-size: 18px;
+  color: $base3;
+
+  .windowTitle {
+    color: inherit;
+    margin-left: 85px;
+  }
+}

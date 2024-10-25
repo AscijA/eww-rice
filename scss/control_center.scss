@@ -1,0 +1,104 @@
+.controlCenterContainer {
+  border-radius: 16px;
+  background-color: $base02;
+  padding: 16px;
+  border: 1px solid $blue;
+
+  box {
+    border-radius: 16px;
+    background-color: $base03;
+    padding: 8px;
+  }
+}
+
+.userLabel {
+  font-size: 32px;
+  font-weight: bold;
+
+}
+
+.iconmic {
+  font-size: 32px;
+  font-weight: normal;
+  color: $blue;
+}
+
+.soundbar {
+  font-size: 28px;
+  padding-right: 15px;
+}
+
+.cbox {
+  &:first-child {
+    border-radius: 16px;
+    border: 1px solid $base3;
+  }
+}
+
+.wifiName {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.ccBtnCont {
+
+  &>box {
+    border-radius: 10px;
+    border: 1px solid $blue;
+  }
+
+  box {
+    background-color: $base02;
+  }
+
+}
+
+.ccBtnContOff {
+  box {
+    background-color: $base02;
+    color: $red;
+  }
+
+  &>box {
+    border: 1px solid $red;
+  }
+
+}
+
+.ccTTCont {
+  background-color: $base03;
+  border-radius: 16px;
+}
+
+calendar {
+  all: unset;
+  color: $base3;
+
+  // background-color: $base01;
+  .view {
+    background-color: $base02;
+    border-radius: 10px;
+  }
+
+  :selected {
+    color: $blue;
+    font-weight: bold;
+    background-color: $base3;
+    border-radius: 8px;
+  }
+
+  .header {
+    background-color: $base01;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .highlight {
+    color: $blue;
+  }
+
+  calendar:indeterminate {
+    color: $base00;
+  }
+}

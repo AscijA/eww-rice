@@ -1,0 +1,101 @@
+;; ******************************** WINDOWS *********************************************
+
+;; Right tray Window
+(defwindow right_tray
+  :stacking "fg"
+  :windowtype "normal"
+  :wm-ignore true
+  :geometry (geometry
+              :height 32
+              :width "11%"
+              :anchor "top right"
+            )
+    (box 
+      :orientation "h"
+      :class "systray"
+      :space-evenly false
+      :spacing 2
+      :valign "center"
+      :halign "end"
+;        (tray)
+        (clock_bar)
+        (control_center_launch 
+          :status {EWW_BATTERY.BAT0.status}
+          :battery {EWW_BATTERY.BAT0.capacity}
+          :charge ""
+          :one ""
+          :two ""
+          :three ""
+          :four ""
+          :five ""
+        )
+        (launch_dashboard)
+    )
+)
+
+;; ******************************** WIDGETS *********************************************
+
+;; systray 
+(defwidget tray []
+  (box 
+    :class "tray"
+    :space-evenly false 
+    :hexpand false
+    :spacing 10
+    :halign "end"
+      (systray 
+        :spacing 10
+        :orientation "h"
+        :space-evenly true
+        :icon-size 24
+        :prepend-new true 
+      )
+      (tooltip 
+        (label 
+          :text {WIFI_STATUS == "Off" ? "Off" : WIFI_NAME} 
+          :class "tooltip")
+        (eventbox 
+          :class "wifiTray"
+          :halign "start"
+          :hexpand false
+          :onclick "./scripts/open_apps.sh --nmd &"
+          :onrightclick "./scripts/open_apps.sh --wifi &" 
+          :cursor "pointer"
+            (wifi_button 
+              :image_width 24 
+              :margin_value 0
+            )
+        )
+      )
+  ) 
+)
+
+;; Clock Widget
+(defwidget clock_bar []
+  (tooltip 
+    :class "ttCont"
+      (box
+        :class "ccTTCont"
+        :orientation "v"
+        :space-evenly false
+        :spacing 0
+        (label 
+          :text DAY
+          :class "tooltip" 
+          :justify "center"
+        )
+        (label 
+          :text DATE 
+          :class "tooltip" 
+          :justify "center"
+        ) 
+      )
+      (box 
+        :valign "center" 
+          (label 
+            :text TIME 
+            :valign "center"
+          )
+      )
+  )
+)

@@ -1,0 +1,29 @@
+.workspaces {
+  font-size: 18px;
+  color: $base3;
+  margin-top: 2px;
+  border-radius: 16px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  padding: 0;
+
+  button {
+    color: $base1;
+    background-color: $base03;
+    border-radius: 0;
+    margin-top: 0;
+    padding: 0;
+    border: none;
+
+    &:last-child {
+      border-radius: 16px;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+
+    &:hover {
+      background-color: $base02;
+      border: none;
+    }
+  }
+}

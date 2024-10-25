@@ -1,0 +1,64 @@
+;; ******************************** WINDOWS *********************************************
+
+;; Window title
+(defwindow window_title
+  :stacking "fg"
+  :windowtype "normal"
+  :wm-ignore true
+  :geometry (geometry
+              :width "35%"
+              :height 32
+              :anchor "center top"
+            )
+    (box 
+      :class "windowTitleContainer" 
+      :space-evenly false 
+      :hexpand true 
+      :halign "fill" 
+        (window_name)
+        (window_control)
+    )
+                
+)
+
+;; ******************************** WIDGETS *********************************************
+
+;; Window Title Widget
+(defwidget window_name [] 
+  (eventbox 
+    :halign "center" 
+    :hexpand true
+    :onclick "./scripts/window_control.sh bar_click ${CLICK_COUNT}"  
+      (box 
+        (label 
+          :class "windowTitle"
+          :text windw_name
+        )
+      )
+    )
+)
+
+;; Window Control Buttons
+(defwidget window_control []
+  (eventbox
+    :cursor "pointer"
+      (box 
+        :space-evenly false 
+        :spacing 20 
+        :halign "end" 
+        :style "margin-right: 16px" 
+        (button 
+          :onclick "./scripts/window_control.sh minimize"
+          ""
+        )
+        (button 
+          :onclick "./scripts/window_control.sh maximize"
+          ""
+        )
+        (button 
+          :onclick "./scripts/window_control.sh close"
+          ""
+        )
+      )
+  )
+)

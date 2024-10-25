@@ -1,0 +1,38 @@
+;; ******************************** WIDGETS *********************************************
+
+;; Workspace buttons
+(defwidget workspaces []
+  (eventbox
+    :cursor "pointer"
+      (box 
+        :orientation "h" 
+        :class "workspaces"
+          (button 
+            :onclick "wmctrl -s 0" 
+            ""
+          )
+          (button 
+            :onclick "wmctrl -s 1" 
+            ""
+          )
+          (button 
+            :onclick "wmctrl -s 2" 
+            ""
+          )
+      ) 
+  )
+)
+
+;; ******************************** WINDOWS *********************************************
+
+;; Workspace Window
+(defwindow workspace_switcher
+  :stacking "fg"
+  :windowtype "normal"
+  :wm-ignore true
+  :geometry (geometry
+              :width "10%"
+              :height 32
+            )
+      (workspaces)
+) 

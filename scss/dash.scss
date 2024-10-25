@@ -1,0 +1,206 @@
+* {
+	all: unset;
+}
+
+/** Background ***************************************/
+.bg {
+	background-color: $base03;
+	opacity: 1;
+	border-radius: 16px;
+}
+
+/** Generic window ***********************************/
+.genwin {
+	background-color: $base02;
+	border-radius: 16px;
+}
+
+/** Profile ******************************************/
+.face {
+	min-height: 200px;
+	min-width: 200px;
+	margin: 65px 0px 0px 0px;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.fullname {
+	color: $base3;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.username {
+	color: $base3;
+	font-size: 22px;
+	font-weight: bold;
+	margin: -15px 0px 0px 0px;
+}
+
+/** System ********************************************/
+.sysicon {
+	font-size: 32px;
+	font-weight: normal;
+	color: $blue;
+}
+
+
+.sysbar,
+scale trough {
+	all: unset;
+	background-color: $base01;
+	border-radius: 16px;
+	min-height: 28px;
+	min-width: 240px;
+}
+
+.sysbar,
+scale trough highlight {
+	all: unset;
+	border-radius: 16px;
+}
+
+.sysbar scale trough highlight {
+	background-color: $base3;
+}
+
+/** Clock ********************************************/
+.timeHour,
+.timeMin {
+	color: $blue;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.timeHour {
+	// margin: 15px 0px 0px 20px;
+	font-size: 75px;
+}
+
+.timeMin {
+	margin: 0px 0px 10px 0px;
+}
+
+.timeDay {
+	color: $base3;
+	font-size: 30px;
+	font-weight: normal;
+	margin: 0px 0px 20px -20px;
+}
+
+/** Uptime ********************************************/
+.icontimer {
+	color: $blue;
+	font-size: 90px;
+	font-weight: normal;
+}
+
+.uphour {
+	color: $base3;
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.upmin {
+	color: $base3;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+
+/** Power buttons ***************************************/
+.powerbutton {
+	font-size: 48px;
+	font-weight: bold;
+	color: $blue;
+
+}
+
+.date{
+	font-size: 36px;
+	color: $blue;
+	font-weight: 800;
+}
+
+/** Home folders ***************************************/
+.hddbox {
+	background-color: $base01;
+	border-radius: 10px;
+	margin: 15px;
+}
+
+.hddicon {
+	color: $base3;
+	font-family: "JetBrainsMono Nerd Font";
+	font-size: 70px;
+	font-weight: normal;
+	margin: 25px 20px 25px 65px;
+}
+
+.hddlabel {
+	color: $base3;
+	font-size: 32px;
+	font-weight: bold;
+	margin: 0px 0px 0px 15px;
+}
+
+.fssep {
+	color: $base3;
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.iconfolder {
+	font-family: "JetBrainsMono Nerd Font";
+	font-size: 32px;
+	font-weight: normal;
+	margin: 0px 0px 0px 87.5px;
+	color: $blue;
+
+}
+
+.labelfolder {
+	font-size: 22px;
+	font-weight: normal;
+	margin: 0px 0px 0px 30px;
+	color: $base3;
+
+}
+
+.vaktijaTime {
+	color: $base3;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 0 15px;
+}
+
+.dashboard {
+	background-color: $base03;
+	padding: 15px;
+	border-radius: 16px;
+	margin-right: -20px;
+}
+
+.vaktija {
+	color: $base3;
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0;
+	margin-right: 25px;
+
+	:first-child {
+		border-radius: 16px;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+
+	}
+}
+
+.vaktijaHeader {
+	background-color: $base01;
+
+}
+
+
+
+/** EOF *************************************************/

@@ -1,0 +1,53 @@
+* {
+  background-color: transparent;
+  font-family: "JetBrainsMono Nerd Font ";
+}
+
+.systray {
+  font-size: 18px;
+  color: #fff;
+  margin-top: 2px;
+
+  .ttCont {
+    padding: 0 10px;
+  }
+
+  .tray{
+    & > box {
+      padding: 0;
+    }
+  }
+
+  .wifiTray{
+    & > box {
+      padding: 0;
+      margin-right: 4px;
+    }
+  }
+
+  box {
+    margin: 0;
+    padding: 0;
+    background-color: $base03;
+    border-radius: 16px;
+    padding: 2px 10px;
+  }
+
+  .dashcont{
+    font-family: "JetBrainsMono Nerd Font ";
+  }
+  label {
+    margin: 0;
+  }
+
+  button {
+    margin: 0;
+    font-family: "JetBrainsMono Nerd Font ";
+  }
+}
+
+.tooltip {
+  background-color: $base03;
+  padding: 16px;
+  border-radius: 16px;
+}
